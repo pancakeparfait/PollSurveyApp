@@ -35,6 +35,8 @@ namespace PollingData
 
         public DbSet<Employee> EmployUsers { get; set; } 
         public DbSet<Survey> PollResults { get; set; }
+        //public DbSet<Admin> Admins { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
