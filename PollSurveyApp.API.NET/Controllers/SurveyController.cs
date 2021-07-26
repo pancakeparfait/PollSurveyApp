@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using PollingModel;
 using PollingService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
 using HttpDeleteAttribute = System.Web.Http.HttpDeleteAttribute;
 using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
 using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
@@ -16,6 +11,22 @@ namespace PollSurveyApp.API.NET.Controllers
 {
     public class SurveyController : ApiController
     {
+        private readonly ISurveyService _service;
+
+        public SurveyController()
+        {
+            _service = CreateSurveyService();
+        }
+
+        /// <summary>
+        /// Testing constructor
+        /// </summary>
+        /// <param name="service"></param>
+        public SurveyController(ISurveyService service)
+        {
+            _service = service;
+        }
+
         private SurveyService CreateSurveyService()
         {
             var userId = User.Identity.GetUserId();
@@ -28,8 +39,7 @@ namespace PollSurveyApp.API.NET.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var service = CreateSurveyService();
-            if (!service.CreateSurvey(model))
+            if (!_service.CreateSurvey(model))
                 return InternalServerError();
             return Ok();
         }

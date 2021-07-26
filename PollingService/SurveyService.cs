@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PollingService
 {
-    public class SurveyService
+    public class SurveyService : ISurveyService
     {
         private readonly string _userId;
 
